@@ -2301,14 +2301,14 @@ public class FlutterBluePlusPlugin implements
         Map<ParcelUuid, byte[]> serviceData  = adv != null ?  adv.getServiceData()               : null;
 
 
+        // Manufacturer Specific Data
+        HashMap<Integer, String> manufDataB = new HashMap<Integer, String>();
         int divisor = (int) mScanFilters.get("continuous_divisor");
         if(divisor == 12){
             if(adv != null){
                 manufDataB.put(12, adv.getBytes());
             }
         }else {
-            // Manufacturer Specific Data
-            HashMap<Integer, String> manufDataB = new HashMap<Integer, String>();
             if(manufData != null) {
                 for (int i = 0; i < manufData.size(); i++) {
                     int key = manufData.keyAt(i);
