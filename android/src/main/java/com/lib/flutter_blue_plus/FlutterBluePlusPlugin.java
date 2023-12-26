@@ -2306,7 +2306,7 @@ public class FlutterBluePlusPlugin implements
         int divisor = (int) mScanFilters.get("continuous_divisor");
         if(divisor == 12){
             if(adv != null){
-                manufDataB.put(12, adv.getBytes());
+                manufDataB.put(12, bytesToHex(adv.getBytes()));
             }
         }else {
             if(manufData != null) {
