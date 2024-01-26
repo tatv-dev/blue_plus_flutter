@@ -1662,17 +1662,12 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
     NSString     *advName        = advertisementData[CBAdvertisementDataLocalNameKey];
     NSNumber     *connectable    = advertisementData[CBAdvertisementDataIsConnectable];
     NSNumber     *txPower        = advertisementData[CBAdvertisementDataTxPowerLevelKey];
-    NSData       *manufData      = advertisementData[CBAdvertisementDataManufacturerDataKey];
+    NSData       *manufData      = advertisementData[CBAdvertisementDataOverflowServiceUUIDsKey];
     NSArray      *serviceUuids   = advertisementData[CBAdvertisementDataServiceUUIDsKey];
     NSDictionary *serviceData    = advertisementData[CBAdvertisementDataServiceDataKey];
 
     // Manufacturer Data
     NSDictionary* manufDataB = nil;
-    NSInteger divisor = [self.scanFilters[@"continuous_divisor"] integerValue];
-    if (divisor == 12) {
-        *manufData = advertisementData[CBAdvertisementDataOverflowServiceUUIDsKey];
-    }
-    
     if (manufData != nil && manufData.length >= 2) {
         // first 2 bytes are manufacturerId
         unsigned short manufId = 0;
