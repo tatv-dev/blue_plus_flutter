@@ -1662,7 +1662,7 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
     NSString     *advName        = advertisementData[CBAdvertisementDataLocalNameKey];
     NSNumber     *connectable    = advertisementData[CBAdvertisementDataIsConnectable];
     NSNumber     *txPower        = advertisementData[CBAdvertisementDataTxPowerLevelKey];
-    NSData       *manufData      = advertisementData[CBAdvertisementDataOverflowServiceUUIDsKey]; //CBAdvertisementDataManufacturerDataKey/CBAdvertisementDataOverflowServiceUUIDsKey
+    NSData       *manufData      = advertisementData[CBAdvertisementDataManufacturerDataKey]; //CBAdvertisementDataManufacturerDataKey/CBAdvertisementDataOverflowServiceUUIDsKey
     NSArray      *serviceUuids   = advertisementData[CBAdvertisementDataServiceUUIDsKey];
     NSDictionary *serviceData    = advertisementData[CBAdvertisementDataServiceDataKey];
 
