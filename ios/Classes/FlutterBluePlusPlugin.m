@@ -1662,20 +1662,26 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
     NSString     *advName        = advertisementData[CBAdvertisementDataLocalNameKey];
     NSNumber     *connectable    = advertisementData[CBAdvertisementDataIsConnectable];
     NSNumber     *txPower        = advertisementData[CBAdvertisementDataTxPowerLevelKey];
-    NSData       *manufData      = advertisementData[CBAdvertisementDataManufacturerDataKey];
+    NSData       *manufData      = nil;
     NSArray      *serviceUuids   = advertisementData[CBAdvertisementDataServiceUUIDsKey];
     NSDictionary *serviceData    = advertisementData[CBAdvertisementDataServiceDataKey];
 
     // Manufacturer Data
     NSDictionary* manufDataB = nil;
     NSInteger divisor = [self.scanFilters[@"continuous_divisor"] integerValue];
-    if (manufData != nil && manufData.length >= 3) {
-        // first 3 bytes are manufacturerId
+    if (divisor == 12) {
+        *manufData = advertisementData[CBAdvertisementDataOverflowServiceUUIDsKey];
+    }else {
+         *manufData = advertisementData[CBAdvertisementDataManufacturerDataKey];
+    }
+    
+    if (manufData != nil && manufData.length >= 2) {
+        // first 2 bytes are manufacturerId
         unsigned short manufId = 0;
-        [manufData getBytes:&manufId length:3];
+        [manufData getBytes:&manufId length:2];
 
-        // trim off first 3 bytes
-        NSData* trimmed = [manufData subdataWithRange:NSMakeRange(3, manufData.length - 3)];
+        // trim off first 2 bytes
+        NSData* trimmed = [manufData subdataWithRange:NSMakeRange(2, manufData.length - 2)];
         NSString* hex = [self convertDataToHex:trimmed];
         
         manufDataB = @{
