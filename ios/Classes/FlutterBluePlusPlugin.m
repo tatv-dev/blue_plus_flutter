@@ -1662,7 +1662,7 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
     NSString     *advName        = advertisementData[CBAdvertisementDataLocalNameKey];
     NSNumber     *connectable    = advertisementData[CBAdvertisementDataIsConnectable];
     NSNumber     *txPower        = advertisementData[CBAdvertisementDataTxPowerLevelKey];
-    NSData       *manufData      = nil;
+    NSData       *manufData      = advertisementData[CBAdvertisementDataManufacturerDataKey];
     NSArray      *serviceUuids   = advertisementData[CBAdvertisementDataServiceUUIDsKey];
     NSDictionary *serviceData    = advertisementData[CBAdvertisementDataServiceDataKey];
 
@@ -1671,8 +1671,6 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
     NSInteger divisor = [self.scanFilters[@"continuous_divisor"] integerValue];
     if (divisor == 12) {
         *manufData = advertisementData[CBAdvertisementDataOverflowServiceUUIDsKey];
-    }else {
-         *manufData = advertisementData[CBAdvertisementDataManufacturerDataKey];
     }
     
     if (manufData != nil && manufData.length >= 2) {
