@@ -1662,25 +1662,29 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
     NSString     *advName        = advertisementData[CBAdvertisementDataLocalNameKey];
     NSNumber     *connectable    = advertisementData[CBAdvertisementDataIsConnectable];
     NSNumber     *txPower        = advertisementData[CBAdvertisementDataTxPowerLevelKey];
-    NSData       *manufData      = advertisementData[CBAdvertisementDataOverflowServiceUUIDsKey]; //CBAdvertisementDataManufacturerDataKey
+    NSData       *manufData      = advertisementData[CBAdvertisementDataOverflowServiceUUIDsKey]; //CBAdvertisementDataManufacturerDataKey/CBAdvertisementDataOverflowServiceUUIDsKey
     NSArray      *serviceUuids   = advertisementData[CBAdvertisementDataServiceUUIDsKey];
     NSDictionary *serviceData    = advertisementData[CBAdvertisementDataServiceDataKey];
 
     // Manufacturer Data
     NSDictionary* manufDataB = nil;
-    if (manufData != nil && manufData.length >= 2) {
-        // first 2 bytes are manufacturerId
+    if (manufData != nil) {
         unsigned short manufId = 0;
-        // [manufData getBytes:&manufId length:2];
 
-        // // trim off first 2 bytes
-        // NSData* trimmed = [manufData subdataWithRange:NSMakeRange(2, manufData.length - 2)];
-        // NSString* hex = [self convertDataToHex:trimmed];
-        
-        // manufDataB = @{
-        //     @(manufId): hex,
-        // };
+        // if(manufData.length >= 2){
+        //     // first 2 bytes are manufacturerId
+        //     [manufData getBytes:&manufId length:2];
 
+        //     // trim off first 2 bytes
+        //     NSData* trimmed = [manufData subdataWithRange:NSMakeRange(2, manufData.length - 2)];
+        //     NSString* hex = [self convertDataToHex:trimmed];
+            
+        //     manufDataB = @{
+        //         @(manufId): hex,
+        //     };
+        // }
+
+        [manufData getBytes:&manufId length:3];
         NSString *hex = [self convertDataToHex:manufData];
 
         // Sử dụng dữ liệu hex như là một chuỗi NSString
