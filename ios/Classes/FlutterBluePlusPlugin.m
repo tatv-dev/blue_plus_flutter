@@ -1684,11 +1684,10 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
         //     };
         // }
 
-        [manufData getBytes:&manufId length:3];
         NSString *hex = [self convertDataToHex:manufData];
 
         // Sử dụng dữ liệu hex như là một chuỗi NSString
-         *manufDataB = @{
+        manufDataB = @{
             @(manufId): hex
         };
     }
