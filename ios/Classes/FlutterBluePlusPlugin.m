@@ -1668,14 +1668,14 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
 
     // Manufacturer Data
     NSDictionary* manufDataB = nil;
-    if (manufData != nil && manufData.length >= 2) {
-        
-        // first 2 bytes are manufacturerId
+    NSInteger divisor = [self.scanFilters[@"continuous_divisor"] integerValue];
+    if (manufData != nil && manufData.length >= 3) {
+        // first 3 bytes are manufacturerId
         unsigned short manufId = 0;
-        [manufData getBytes:&manufId length:2];
+        [manufData getBytes:&manufId length:3];
 
-        // trim off first 2 bytes
-        NSData* trimmed = [manufData subdataWithRange:NSMakeRange(2, manufData.length - 2)];
+        // trim off first 3 bytes
+        NSData* trimmed = [manufData subdataWithRange:NSMakeRange(3, manufData.length - 3)];
         NSString* hex = [self convertDataToHex:trimmed];
         
         manufDataB = @{
